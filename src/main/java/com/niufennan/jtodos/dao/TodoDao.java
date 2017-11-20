@@ -1,7 +1,7 @@
 package com.niufennan.jtodos.dao;
 
 import com.niufennan.jtodos.models.Todo;
-import com.niufennan.jtodos.utils.DatabaseHelper;
+import com.niufennan.jtodos.helper.DatabaseHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -33,7 +33,34 @@ public class TodoDao {
         }
         return list;
     }
+    public List<Todo> getTodoByUserId(int userId){
+        Connection connection= null;
+        PreparedStatement statement=null;
+        ResultSet resultSet=null;
+        List<Todo> list=new ArrayList<Todo>();
+        try{
+            connection =DatabaseHelper.getConnection();
+            statement= connection.prepareStatement("select * from todos where userId=?");
+            statement.setInt(1,userId);
+            resultSet=statement.executeQuery();
+            while (resultSet.next()){
+                Todo todo=new Todo();
+                todo.setId(resultSet.getInt("id"));
+                todo.setItem(resultSet.getString("item"));
+                todo.setCreateTime(resultSet.getTimestamp("createtime"));
+                todo.setUserId(resultSet.getInt("userid"));
+                list.add(todo);
+            }
 
+        }catch (SQLException ex){
+            new RuntimeException(ex);
+        }
+        finally {
+            DatabaseHelper.close(resultSet,statement,connection);
+        }
+
+        return list;
+    }
     public void save(Todo todo){
         Connection connection=null;
         PreparedStatement statement=null;

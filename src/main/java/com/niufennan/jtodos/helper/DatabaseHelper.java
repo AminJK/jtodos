@@ -1,4 +1,4 @@
-package com.niufennan.jtodos.utils;
+package com.niufennan.jtodos.helper;
 
 import java.sql.*;
 
