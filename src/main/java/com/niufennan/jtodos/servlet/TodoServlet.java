@@ -23,7 +23,7 @@ public class TodoServlet extends HttpServlet
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name=UrlUtil.getUserName(request.getRequestURL().toString());
-
+        System.out.println("TodoServlet");
         if("".equals(name)){
             //跳转至错误页面
             response.sendRedirect("error.jsp");
@@ -43,7 +43,6 @@ public class TodoServlet extends HttpServlet
         //获取todo列表
         TodoDao todoDao=new TodoDao();
         List<Todo> list=todoDao.getTodoByUserId(user.getId());
-        System.out.println(list.size());
         //将list和name存入request以备jsp页面使用
         request.setAttribute("todos",list);
         request.setAttribute("userid",user.getId());
