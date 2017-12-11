@@ -14,9 +14,9 @@
     <div class="column ">
         <h2 class="ui huge header center violet aligned">jTodos!</h2>
         <div class="ui raised segment">
-            <form action="/todos/${userid}" method="post"  class="ui fluid action input">
-                <input type="text" name="todo" placeholder="请输入一个备忘录项目"/>
-                <input type="hidden" name="user" value="${userid}"/>
+            <form action="/todos" method="post"  class="ui fluid action input">
+                <input type="text" name="item" placeholder="请输入一个备忘录项目"/>
+                <input type="hidden" name="userId" value="${userid}"/>
                 <button type="submit" class="ui button">OK</button>
             </form>
             <div class="ui aligned huge selection divided list">

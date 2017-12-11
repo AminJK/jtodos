@@ -3,7 +3,7 @@ import java.util.Date;
 public class Todo {
     private int id;
     private String item;
-    private Date createTime;
+    private Date createTime=new Date();
     private int userId;
     public int getId() {
         return id;
