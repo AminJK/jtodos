@@ -4,6 +4,10 @@ import com.niufennan.jtodos.dao.TodoDao;
 import com.niufennan.jtodos.dao.UserDao;
 import com.niufennan.jtodos.models.Todo;
 import com.niufennan.jtodos.models.User;
+import com.niufennan.jtodos.service.TodoService;
+import com.niufennan.jtodos.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,21 +20,15 @@ import java.util.List;
 
 @Controller
 public class TodoController {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private TodoService todoService;
     @RequestMapping(value ="/todos/{name}" ,method = RequestMethod.GET)
     public String home(@PathVariable String name, HttpServletRequest request){
-        UserDao userDao =new UserDao();
-        User user=null;
-        //获取用户
-        user=userDao.getUserByName(name);
-        if(null==user){
-            //新用户
-            user=new User();
-            user.setName(name);
-            user.setId(userDao.save(user));
-        }
+        User user=userService.getUserByName(name);
         //获取todo列表
-        TodoDao todoDao=new TodoDao();
-        List<Todo> list=todoDao.getTodoByUserId(user.getId());
+        List<Todo> list= todoService.getTodoByUserId(user.getId());
         //将list和name存入request以备jsp页面使用
         request.setAttribute("todos",list);
         request.setAttribute("userid",user.getId());
@@ -38,11 +36,9 @@ public class TodoController {
     }
     @RequestMapping(value ="/todos" ,method = RequestMethod.POST)
     public String home(HttpServletResponse response, Todo todo) throws IOException {
-        TodoDao todoDao=new TodoDao();
-        todoDao.save(todo);
+        todoService.save(todo);
         //获取user
-        UserDao userDao=new UserDao();
-        User user=userDao.get(todo.getUserId());
+        User user = userService.get(todo.getUserId());
         //页面跳转
         return "redirect:/todos/"+user.getName();
     }
