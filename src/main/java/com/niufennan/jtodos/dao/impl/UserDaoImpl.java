@@ -4,14 +4,20 @@ import com.niufennan.jtodos.dao.UserDao;
 import com.niufennan.jtodos.helper.DatabaseHelper;
 import com.niufennan.jtodos.models.Todo;
 import com.niufennan.jtodos.models.User;
+import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 
+import javax.inject.Inject;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao{
+
+    @Inject
+    private JdbcOperations template;
+
     public User getUserByName(String name){
         Connection connection= null;
         PreparedStatement statement=null;

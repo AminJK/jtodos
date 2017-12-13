@@ -1,9 +1,12 @@
 package com.niufennan.jtodos.helper;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 public class DatabaseHelper {
 
+
+    private DataSource dataSource;
     public static Connection getConnection(){
         Connection connection=null;
         try {
