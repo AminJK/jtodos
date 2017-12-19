@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.criteria.*;
 import java.util.List;
-
+/*
 @Transactional
 @Repository
 public class JpaTodoRepository implements TodoRepository {
@@ -34,3 +34,4 @@ public class JpaTodoRepository implements TodoRepository {
         entityManager.persist(todo);
     }
 }
+*/

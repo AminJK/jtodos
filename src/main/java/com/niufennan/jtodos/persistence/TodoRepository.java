@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface TodoRepository {
-    public List<Todo> getAll();
+public interface TodoRepository extends JpaRepository<Todo,Integer> {
     public List<Todo> getTodoByUserId(int userId);
-    public void save(Todo todo);
 }
