@@ -1,0 +1,15 @@
+<!--
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="jtodosPU">
+        <class>com.niufennan.jtodos.models.Todo</class>
+        <class>com.niufennan.jtodos.models.User</class>
+        <properties>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/jtodos?serverTimezone=GMT%2b8"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="123"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>-->

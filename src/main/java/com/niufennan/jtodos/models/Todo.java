@@ -1,14 +1,19 @@
 package com.niufennan.jtodos.models;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
+@Entity(name = "todos")
 public class Todo {
-    private int id;
+    @Id
+    private Integer id;
     private String item;
     private Date createTime=new Date();
-    private int userId;
-    public int getId() {
+    private Integer userId;
+    public Integer getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getItem() {
@@ -24,11 +29,11 @@ public class Todo {
         this.createTime = createTime;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 }
