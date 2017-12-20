@@ -1,14 +1,18 @@
 package com.niufennan.jtodos.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity(name = "users")
 public class User {
-    private int Id;
+    @Id
+    private Integer Id;
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         Id = id;
     }
 

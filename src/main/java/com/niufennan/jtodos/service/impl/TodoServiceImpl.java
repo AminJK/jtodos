@@ -1,6 +1,5 @@
 package com.niufennan.jtodos.service.impl;
 
-import com.niufennan.jtodos.dao.TodoDao;
 import com.niufennan.jtodos.models.Todo;
 import com.niufennan.jtodos.persistence.TodoRepository;
 import com.niufennan.jtodos.service.TodoService;
