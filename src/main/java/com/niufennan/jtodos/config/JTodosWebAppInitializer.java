@@ -4,6 +4,7 @@ import org.apache.logging.log4j.web.Log4jServletContextListener;
 import org.apache.logging.log4j.web.Log4jServletFilter;
 import org.apache.logging.slf4j.Log4jLoggerFactory;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.DispatcherType;
@@ -32,9 +33,7 @@ public class JTodosWebAppInitializer extends AbstractAnnotationConfigDispatcherS
     public void onStartup(ServletContext servletContext) throws ServletException {
         servletContext.addFilter("name", new CharacterEncodingFilter("UTF-8", true))
                 .addMappingForUrlPatterns(null, false, "/*");
+
         super.onStartup(servletContext);
     }
-
-
-
 }

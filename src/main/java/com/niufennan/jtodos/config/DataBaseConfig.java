@@ -1,5 +1,6 @@
 package com.niufennan.jtodos.config;
 
+import com.niufennan.jtodos.ext.ExtInstrumentationLoadTimeWeaver;
 import org.eclipse.persistence.platform.database.MySQLPlatform;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,6 +61,8 @@ public class DataBaseConfig {
         lcemf.setPackagesToScan("com.niufennan.jtodos.models");
         return lcemf;
     }
+
+
 
 
 }

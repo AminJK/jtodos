@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN" monitorInterval="30">
     <properties>
-        <property name="LOG_HOME">${sys:catalina.home}/WEB-INF/logs</property>
+        <property name="LOG_HOME">d:/WEB-INF/logs</property>
         <property name="FILE_NAME">jtodos_log</property>
     </properties>
     <Appenders>

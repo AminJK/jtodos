@@ -7,4 +7,5 @@ import java.util.List;
 public interface TodoService {
     void  save(Todo todo);
     List<Todo> getTodoByUserId(int userId);
+    List<Todo> getTodoByDefaultGroup(int userId,int month);
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,7 @@ public class TodoController {
 
     private static Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
     @RequestMapping(value ="/todos/{name}" ,method = RequestMethod.GET)
+    //@RequiresAuthentication()
     public String home(@PathVariable String name, HttpServletRequest request){
         User user=userService.getUserByName(name);
         //获取todo列表
@@ -44,4 +46,5 @@ public class TodoController {
         //页面跳转
         return "redirect:/todos/"+user.getName();
     }
+
 }
