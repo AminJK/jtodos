@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +32,11 @@ public class TodoServiceImpl implements TodoService {
 
     public List<Todo> getTodoByDefaultGroup(int userId,int month) {
         TodoGroup todoGroup=todoGroupRepository.findByIsDefaultAndUserId(1,userId);
+        System.out.println(todoGroup.getId());
         DateBetween between=getDate(month);
+        System.out.println(between.getFirstDate());
+        System.out.println(between.getEndDate());
+
         List<Todo>  todos= todoRepository.getByGroupIdAndCreateTimeBetween(todoGroup.getId(),between.getFirstDate(),between.getEndDate());
         return todos;
     }
@@ -44,14 +47,21 @@ public class TodoServiceImpl implements TodoService {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar firstCalender =  Calendar.getInstance();
         // 获取前月的第一天
-        firstCalender = Calendar.getInstance();
+        firstCalender.set(Calendar.MONTH,month);
         firstCalender.add(Calendar.MONTH, 0);
         firstCalender.set(Calendar.DAY_OF_MONTH, 1);
+        firstCalender.set(Calendar.HOUR_OF_DAY,0);
+        firstCalender.set(Calendar.MINUTE,0);
+        firstCalender.set(Calendar.SECOND,0);
         between.setFirstDate(firstCalender.getTime());
         // 获取前月的最后一天
         Calendar endCalender =   Calendar.getInstance();
-        endCalender.add(Calendar.MONTH, 1);
-        endCalender.set(Calendar.DAY_OF_MONTH, 0);
+        endCalender.set(Calendar.MONTH,++month);
+        endCalender.set(Calendar.DAY_OF_MONTH, 1);
+        endCalender.set(Calendar.HOUR_OF_DAY,0);
+        endCalender.set(Calendar.MINUTE,0);
+        endCalender.set(Calendar.SECOND,0);
+        endCalender.add(Calendar.SECOND,-1);
         between.setEndDate(endCalender.getTime());
         return  between;
     }
