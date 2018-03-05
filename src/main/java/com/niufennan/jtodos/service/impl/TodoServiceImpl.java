@@ -30,23 +30,47 @@ public class TodoServiceImpl implements TodoService {
         //return todoDao.getTodoByUserId(userId);
     }
 
-    public List<Todo> getTodoByDefaultGroup(int userId,int month) {
+    public List<Todo> getTodoByDefaultGroup(int userId,int year,int month) {
         TodoGroup todoGroup=todoGroupRepository.findByIsDefaultAndUserId(1,userId);
-        System.out.println(todoGroup.getId());
-        DateBetween between=getDate(month);
-        System.out.println(between.getFirstDate());
-        System.out.println(between.getEndDate());
-
+        DateBetween between=getDate(year,month);
         List<Todo>  todos= todoRepository.getByGroupIdAndCreateTimeBetween(todoGroup.getId(),between.getFirstDate(),between.getEndDate());
         return todos;
     }
 
-    private DateBetween getDate( int month ){
+    public List<Todo> getTodoByCalendarTodoList(int userId, int groupId, int year,int month, int day) {
+        DateBetween between=getDate(year,month,day);
+        List<Todo> todos=todoRepository.getByGroupIdAndCreateTimeBetween(groupId,between.getFirstDate(),between.getEndDate());
+        return todos;
+    }
 
+    private DateBetween getDate(int year, int month,int day ){
         DateBetween between=new DateBetween();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar firstCalender =  Calendar.getInstance();
-        // 获取前月的第一天
+        firstCalender.set(Calendar.YEAR,year);
+        firstCalender.set(Calendar.MONTH,month);
+        firstCalender.set(Calendar.DAY_OF_MONTH,day);
+        firstCalender.set(Calendar.HOUR_OF_DAY,0);
+        firstCalender.set(Calendar.MINUTE,0);
+        firstCalender.set(Calendar.SECOND,0);
+        between.setFirstDate(firstCalender.getTime());
+        // 获取前月的最后一天
+        Calendar endCalender =   Calendar.getInstance();
+        endCalender.set(Calendar.YEAR,year);
+        endCalender.set(Calendar.MONTH, month);
+        endCalender.set(Calendar.DAY_OF_MONTH,++day);
+        endCalender.set(Calendar.HOUR_OF_DAY,0);
+        endCalender.set(Calendar.MINUTE,0);
+        endCalender.set(Calendar.SECOND,0);
+        endCalender.add(Calendar.SECOND,-1);
+        between.setEndDate(endCalender.getTime());
+        return between;
+    }
+
+    private DateBetween getDate(int year, int month ){
+        DateBetween between=new DateBetween();
+        Calendar firstCalender =  Calendar.getInstance();
+        // 获取前年月的第一天
+        firstCalender.set(Calendar.YEAR,year);
         firstCalender.set(Calendar.MONTH,month);
         firstCalender.add(Calendar.MONTH, 0);
         firstCalender.set(Calendar.DAY_OF_MONTH, 1);
@@ -54,8 +78,9 @@ public class TodoServiceImpl implements TodoService {
         firstCalender.set(Calendar.MINUTE,0);
         firstCalender.set(Calendar.SECOND,0);
         between.setFirstDate(firstCalender.getTime());
-        // 获取前月的最后一天
+        // 获取前年月的最后一天
         Calendar endCalender =   Calendar.getInstance();
+        endCalender.set(Calendar.YEAR,year);
         endCalender.set(Calendar.MONTH,++month);
         endCalender.set(Calendar.DAY_OF_MONTH, 1);
         endCalender.set(Calendar.HOUR_OF_DAY,0);
